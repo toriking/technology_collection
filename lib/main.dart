@@ -43,6 +43,9 @@ class _RandomWordsState extends State<RandomWords> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Technology collection'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+        ],
       ),
       body: _buildSuggestions(),
     );
@@ -72,10 +75,21 @@ class _RandomWordsState extends State<RandomWords> {
       ),
       trailing: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color:  alreadySaved ? Colors.red : null,
+        color: alreadySaved ? Colors.yellow : null,
       ),
+      onTap: () {
+        setState(() {
+          if (alreadySaved) {
+            _saved.remove(pair);
+          } else {
+            _saved.add(pair);
+          }
+        });
+      },
     );
   }
+
+  void _pushSaved() {}
 }
 
 // class RandomWords extends StatefulWidget {
