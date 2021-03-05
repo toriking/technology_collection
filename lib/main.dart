@@ -1,31 +1,21 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
+// コメント多いですが自分なりの解釈です
+// 使いたいパッケージを呼ぶよ
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-
 // アプリの生成するよ宣言
 void main() => runApp(MyApp());
-// 
+// MyAppはStatelessWidgetクラスを継承します
 class MyApp extends StatelessWidget {
+  // 継承
   @override
   Widget build(BuildContext context) {
-    // final wordPair = WordPair.random();
+  
     return MaterialApp(
       title: 'Technology collection',
       home: RandomWords(),
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      // home: Scaffold(
-      //   appBar: AppBar(
-      //     title: Text('Technology collection'),
-      //   ),
-      //   body: Center(
-      //     child: RandomWords(),
-      //   ),
-      // ),
     );
   }
 }
