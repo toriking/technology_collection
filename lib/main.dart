@@ -2,29 +2,32 @@
 // 使いたいパッケージを呼ぶよ
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-// アプリの生成するよ宣言
+// アプリを起動するよ
 void main() => runApp(MyApp());
-// MyAppはStatelessWidgetクラスを継承します
+// MyAppはStatelessWidgetクラスを継承します アプリの状態Stateを扱わない
 class MyApp extends StatelessWidget {
-  // 継承
+  // 継承 書き換え
   @override
+  // buildメソッド
   Widget build(BuildContext context) {
-  
+  // MaterialAppでラップするよ
     return MaterialApp(
+      // titleタイトルhome theme色
       title: 'Technology collection',
       home: RandomWords(),
       theme: ThemeData(
-        primarySwatch: Colors.red,
+      primarySwatch: Colors.red,
       ),
     );
   }
 }
-
+// homeプロパティのRandmWordsはStatefulWigidetクラスを継承します アプリの状態Stateを扱う
 class RandomWords extends StatefulWidget {
   @override
+  
   _RandomWordsState createState() => _RandomWordsState();
 }
-
+// 
 class _RandomWordsState extends State<RandomWords> {
   @override
   final List<WordPair> _suggestions = <WordPair>[];
