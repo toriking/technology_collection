@@ -24,19 +24,22 @@ class MyApp extends StatelessWidget {
 // homeプロパティのRandmWordsはStatefulWigidetクラスを継承します アプリの状態Stateを扱う
 class RandomWords extends StatefulWidget {
   @override
-  
+  // createState関数でホーム画面で扱うStateを指定
   _RandomWordsState createState() => _RandomWordsState();
 }
-// 
+// Stateを拡張していくよ
 class _RandomWordsState extends State<RandomWords> {
   @override
+  // final定義
   final List<WordPair> _suggestions = <WordPair>[];
   final Set<WordPair> _saved = Set<WordPair>();
   final TextStyle _biggerFont = TextStyle(fontSize: 30);
   Widget build(BuildContext context) {
+    // Scaffoldレイアウト AppBarアプリのタイトルバー
     return Scaffold(
       appBar: AppBar(
         title: Text('Technology collection'),
+        // アクションボタンonPressddタッチした時のイベント_pushSavedをインクリメント
         actions: <Widget>[
           IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
         ],
