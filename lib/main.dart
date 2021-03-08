@@ -2,31 +2,38 @@
 // 使いたいパッケージを呼ぶよ
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+
 // アプリを起動するよ
 void main() => runApp(MyApp());
+
 // MyAppはStatelessWidgetクラスを継承します アプリの状態Stateを扱わない
 class MyApp extends StatelessWidget {
   // 継承 書き換え
   @override
   // buildメソッド
   Widget build(BuildContext context) {
-  // MaterialAppでラップするよ
+    // MaterialAppでラップするよ
     return MaterialApp(
       // titleタイトルhome theme色
       title: 'Technology collection',
       home: RandomWords(),
       theme: ThemeData(
-      primarySwatch: Colors.red,
+        primarySwatch: Colors.red,
       ),
+      routes: {
+        '/first': (BuildContext context) => RandomWords(),
+      },
     );
   }
 }
+
 // homeプロパティのRandmWordsはStatefulWigidetクラスを継承します アプリの状態Stateを扱う
 class RandomWords extends StatefulWidget {
   @override
   // createState関数でホーム画面で扱うStateを指定
   _RandomWordsState createState() => _RandomWordsState();
 }
+
 // Stateを拡張していくよ
 class _RandomWordsState extends State<RandomWords> {
   @override
@@ -39,12 +46,46 @@ class _RandomWordsState extends State<RandomWords> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Technology collection'),
-        // アクションボタンonPressddタッチした時のイベント_pushSavedをインクリメント
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
-        ],
       ),
-      body: _buildSuggestions(),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Flutterチュートリアル'),
+              subtitle: Text('ステージ1'),
+              tileColor: Colors.blue,
+              leading: Icon(Icons.list_alt),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                Navigator.of(context).pushNamed('/first');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('その他'),
+            )
+          ],
+        ),
+      ),
+
+      // アクションボタンonPressddタッチした時のイベント_pushSavedをインクリメント
+      // actions: <Widget>[
+      //   IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+      // ],
+
+      // body: _buildSuggestions(),
     );
   }
 
