@@ -20,8 +20,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
+      // リンク先
       routes: {
         '/first': (BuildContext context) => RandomWords(),
+        '/second': (BuildContext context) => secondPage(),
       },
     );
   }
@@ -47,21 +49,39 @@ class _RandomWordsState extends State<RandomWords> {
       appBar: AppBar(
         title: Text('Technology collection'),
       ),
-      drawer: Drawer(
+      endDrawer: Drawer(
         child: ListView(
+          padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.green,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+            // アカウントレイアウト
+            UserAccountsDrawerHeader(
+              margin: const EdgeInsets.only(bottom: 0),
+              accountName: Text('Torii'),
+              accountEmail: Text('22321@gmail.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor:
+                    Theme.of(context).platform == TargetPlatform.iOS
+                        ? Colors.blue
+                        : Colors.white,
+                child: Text(
+                  '',
+                  style: TextStyle(fontSize: 40.0),
                 ),
               ),
+              otherAccountsPictures: [
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                ),
+              ],
             ),
+
+            // 一覧 titleタイトル subtitleサブタイトル titleColor色 leading前端 trailing後端 onTapタップ時イベント
             ListTile(
               title: Text('Flutterチュートリアル'),
               subtitle: Text('ステージ1'),
@@ -71,10 +91,14 @@ class _RandomWordsState extends State<RandomWords> {
               onTap: () {
                 Navigator.of(context).pushNamed('/first');
               },
+              onLongPress: () => {},
             ),
             ListTile(
               leading: Icon(Icons.account_circle),
               title: Text('その他'),
+              onTap: () {
+                Navigator.of(context).pushNamed('/second');
+              },
             )
           ],
         ),
@@ -154,6 +178,17 @@ class _RandomWordsState extends State<RandomWords> {
   }
 }
 
+class secondPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('2ページ目'),
+      ),
+      body: Center(),
+    );
+  }
+}
 // class RandomWords extends StatefulWidget {
 //   @override
 //   RandomWordsState createState() => RandomWordsSatate();
