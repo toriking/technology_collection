@@ -16,13 +16,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // titleタイトルhome theme色
       title: 'Technology collection',
-      home: RandomWords(),
+      home: MyHomePage(),
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
       // リンク先
       routes: {
-        '/first': (BuildContext context) => RandomWords(),
+        '/first': (BuildContext context) => MyHomePage(),
         '/second': (BuildContext context) => secondPage(),
       },
     );
@@ -30,20 +30,26 @@ class MyApp extends StatelessWidget {
 }
 
 // homeプロパティのRandmWordsはStatefulWigidetクラスを継承します アプリの状態Stateを扱う
-class RandomWords extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
   @override
   // createState関数でホーム画面で扱うStateを指定
-  _RandomWordsState createState() => _RandomWordsState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 // Stateを拡張していくよ
-class _RandomWordsState extends State<RandomWords> {
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // Scaffoldレイアウト AppBarアプリのタイトルバー
     return Scaffold(
       appBar: AppBar(
         title: Text('Technology collection'),
+      ),
+      body: Center(
+        child: Text(
+          'ふぁふぁふぁ',
+          style: TextStyle(fontSize: 30),
+        ),
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -84,7 +90,7 @@ class _RandomWordsState extends State<RandomWords> {
                 style: TextStyle(fontSize: 16, color: Colors.red),
               ),
               subtitle: Text('part1,2'),
-              tileColor: Colors.blue,
+              // tileColor: Colors.black,
               leading: Icon(Icons.list_alt),
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
