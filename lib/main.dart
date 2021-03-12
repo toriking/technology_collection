@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Technology collection'),
       ),
+      // 中央寄せ
       body: Center(
         child: Text(
           'ふぁふぁふぁ',
@@ -106,6 +107,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.of(context).pushNamed('/second');
               },
             )
+          ],
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('ててて'),
+            ),
+            ListTile(
+              title: Text(
+                'ひだり',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
           ],
         ),
       ),
