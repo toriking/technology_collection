@@ -42,91 +42,111 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // Scaffoldレイアウト AppBarアプリのタイトルバー
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Technology collection'),
-      ),
-      // 中央寄せ
-      body: Center(
-        child: Text(
-          'ふぁふぁふぁ',
-          style: TextStyle(fontSize: 30),
+        appBar: AppBar(
+          title: Text('Technology collection'),
         ),
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            // アカウントレイアウト
-            UserAccountsDrawerHeader(
-              margin: const EdgeInsets.only(bottom: 0),
-              accountName: Text('Torii'),
-              accountEmail: Text('22321@gmail.com'),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor:
-                    Theme.of(context).platform == TargetPlatform.iOS
-                        ? Colors.blue
-                        : Colors.white,
-                child: Text(
-                  '',
-                  style: TextStyle(fontSize: 40.0),
+        // 中央寄せ
+        body: Center(
+          child: Text(
+            'ふぁふぁふぁ',
+            style: TextStyle(fontSize: 30),
+          ),
+        ),
+        endDrawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              // アカウントレイアウト
+              UserAccountsDrawerHeader(
+                margin: const EdgeInsets.only(bottom: 0),
+                accountName: Text('Torii'),
+                accountEmail: Text('22321@gmail.com'),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).platform == TargetPlatform.iOS
+                          ? Colors.blue
+                          : Colors.white,
+                  child: Text(
+                    '',
+                    style: TextStyle(fontSize: 40.0),
+                  ),
                 ),
+                otherAccountsPictures: [
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                  ),
+                ],
               ),
-              otherAccountsPictures: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
+
+              // 一覧 titleタイトル subtitleサブタイトル titleColor色 leading前端 trailing後端 onTapタップ時イベント
+              ListTile(
+                title: Text(
+                  'Flutterチュートリアル',
+                  style: TextStyle(fontSize: 16, color: Colors.red),
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
+                subtitle: Text('part1,2'),
+                // tileColor: Colors.black,
+                leading: Icon(Icons.list_alt),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/first');
+                },
+                onLongPress: () => {},
+              ),
+              ListTile(
+                leading: Icon(Icons.account_circle),
+                title: Text('その他'),
+                onTap: () {
+                  // タップ時にDrawer閉じる
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed('/second');
+                },
+              )
+            ],
+          ),
+        ),
+        drawer: ClipRRect(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
+          child: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                SizedBox(
+                  height: 60,
+                  child: DrawerHeader(
+                    margin: const EdgeInsets.only(bottom: 0),
+                    // padding: EdgeInsets.zero,
+                    child: Text(
+                      '学習リスト',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                    ),
+                    padding: EdgeInsets.zero,
+                  ),
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
+                ListTile(
+                  title: Text(
+                    'ひだり',
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
               ],
             ),
-
-            // 一覧 titleタイトル subtitleサブタイトル titleColor色 leading前端 trailing後端 onTapタップ時イベント
-            ListTile(
-              title: Text(
-                'Flutterチュートリアル',
-                style: TextStyle(fontSize: 16, color: Colors.red),
-              ),
-              subtitle: Text('part1,2'),
-              // tileColor: Colors.black,
-              leading: Icon(Icons.list_alt),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.of(context).pushNamed('/first');
-              },
-              onLongPress: () => {},
-            ),
-            ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('その他'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed('/second');
-              },
-            )
-          ],
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('ててて'),
-            ),
-            ListTile(
-              title: Text(
-                'ひだり',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
 
