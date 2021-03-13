@@ -1,11 +1,12 @@
 // コメント多いですが自分なりの解釈です
 // 使いたいパッケージを呼ぶよ
 import 'package:flutter/material.dart';
-// import './technology_template/tutorial.dart';
+import 'package:technology_collection/technology_template/tete.dart';
+
+import './technology_template/tete.dart';
 
 // アプリを起動するよ
 void main() => runApp(MyApp());
-
 // MyAppはStatelessWidgetクラスを継承します アプリの状態Stateを扱わない
 class MyApp extends StatelessWidget {
   // 継承 書き換え
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/first': (BuildContext context) => MyHomePage(),
         '/second': (BuildContext context) => secondPage(),
+        '/third': (BuildContext context) => NewView1(),
       },
     );
   }
@@ -107,7 +109,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushNamed('/second');
                 },
-              )
+              ),
+              ListTile(
+                  leading: Icon(Icons.emoji_objects_outlined),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/third');
+                    return MyHomePage();
+                  }),
             ],
           ),
         ),
