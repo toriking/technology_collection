@@ -1,6 +1,5 @@
 // コメント多いですが自分なりの解釈です
 // 使いたいパッケージを呼ぶよ
-
 import 'package:flutter/material.dart';
 import 'package:technology_collection/technology_template/tete.dart';
 // 外部ファイルを使うよ
@@ -25,13 +24,14 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           Routes.home: (BuildContext context) =>
               HomeScreen(title: 'Home Screen'),
-          '/tete': (BuildContext context) => NewView1(),
+          Routes.tete: (BuildContext context) => NewView1(),
         });
   }
 }
 
 class Routes {
   static const String home = '/home';
+  static const String tete = '/tete';
 }
 
 class HomeScreen extends StatefulWidget {
