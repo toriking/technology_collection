@@ -1,4 +1,4 @@
-// コメント多いですが自分なりの解釈です
+// コメント多いですが自分なりの解釈です　なるべくべた書きします
 // 使いたいパッケージを呼ぶよ
 import 'package:flutter/material.dart';
 import 'package:technology_collection/technology_template/tete.dart';
@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         // titleタイトルhome theme色
         title: 'Technology collection',
+        // テーマカラー
+        theme: ThemeData(primaryColor: Colors.red),
+        // HomeScreenを呼ぶよ
         home: HomeScreen(title: 'Home Screen'),
         routes: <String, WidgetBuilder>{
           Routes.home: (BuildContext context) =>
@@ -45,18 +48,37 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Center(
-        child: Text(
-          widget.title,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 25),
-        ),
-      )),
-      drawer: TechnologyDrawer(),
-      endDrawer: TechnologyEndDrawer(),
-      body: Text(''),
-    );
+        appBar: AppBar(
+            backgroundColor: Colors.blue,
+            title: Center(
+              child: Text(
+                widget.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25),
+              ),
+            )),
+        drawer: TechnologyDrawer(),
+        endDrawer: TechnologyEndDrawer(),
+        body: Container(
+          // マージン左右の100上下10
+          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          height: 800,
+          width: 380,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.green),
+          ),
+          child: Column(
+            children: <Widget>[
+              TextButton(onPressed: () {}, child: Text('テキストボタン')),
+              ElevatedButton(onPressed: () {}, child: Text('aaaa')),
+              // 2021 OutlineButton=>OutlinedButtonに変わった
+              OutlinedButton(
+                onPressed: () {},
+                child: Text('アウトラインボタン'),
+              )
+            ],
+          ),
+        ));
   }
 }
 

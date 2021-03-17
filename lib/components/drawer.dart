@@ -9,6 +9,7 @@ class TechnologyDrawer extends StatelessWidget {
         children: <Widget>[
           // アカウントレイアウトWidget
           UserAccountsDrawerHeader(
+            
             margin: const EdgeInsets.only(bottom: 0),
             accountName: Text('Torii'),
             accountEmail: Text('22321@gmail.com'),
