@@ -59,14 +59,17 @@ class HomeScreenState extends State<HomeScreen> {
             )),
         drawer: TechnologyDrawer(),
         endDrawer: TechnologyEndDrawer(),
-        body: Container(
+        body: Center(
+            child: Container(
           // マージン左右の100上下10
+
           margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           height: 800,
           width: 380,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.green),
           ),
+
           child: Column(
             children: <Widget>[
               TextButton(onPressed: () {}, child: Text('テキストボタン')),
@@ -78,7 +81,7 @@ class HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-        ));
+        )));
   }
 }
 
