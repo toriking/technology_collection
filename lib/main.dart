@@ -1,10 +1,8 @@
 // コメント多いですが自分なりの解釈です　なるべくべた書きします
 // 使いたいパッケージを呼ぶよ
 import 'package:flutter/material.dart';
-import 'package:technology_collection/technology_template/tete.dart';
 // 外部ファイルを使うよ
 import './technology_template/tete.dart';
-import 'components/enddrawer.dart';
 import 'components/drawer.dart';
 
 // アプリを起動するよ ワンライナー
@@ -24,10 +22,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(primaryColor: Colors.red),
         // HomeScreenを呼ぶよ
         home: HomeScreen(title: 'Home Screen'),
-        routes: <String, WidgetBuilder>{
-          Routes.home: (BuildContext context) =>
-              HomeScreen(title: 'Home Screen'),
-          Routes.tete: (BuildContext context) => NewView1(),
+        // routes: <String, WidgetBuilder>{
+        //   Routes.home: (BuildContext context) =>
+        //       HomeScreen(title: 'Home Screen'),
+        //   Routes.tete: (BuildContext context) => NewView1(),
         });
   }
 }
@@ -45,43 +43,67 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+  final drawerItems = <DrawerItem>[];
+  var _routes = [
+    HomeScreen(),
+    Tete(),
+  ];
+  void _onItemTapped(int index) {
+    setState(() {
+      _drawerItems[_selectdIndex] = _UpdateDeactiveState(_selectedIndex);
+      _drawerItems[index] = _UpdateActiveState(index);
+      _selectedIndex = index;
+    });
+  }
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //       appBar: AppBar(
+  //           backgroundColor: Colors.blue,
+  //           title: Center(
+  //             child: Text(
+  //               widget.title,
+  //               textAlign: TextAlign.center,
+  //               style: TextStyle(fontSize: 25),
+  //             ),
+  //           )),
+  //       drawer: TechnologyDrawer(),
+  //       endDrawer: TechnologyEndDrawer(),
+  //       body: Center(
+  //           child: Container(
+  //         // マージン左右の100上下10
+  //         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //         height: 800,
+  //         width: 900,
+  //         decoration: BoxDecoration(
+  //           border: Border.all(color: Colors.green),
+  //         ),
+
+  //         // 縦並び
+  //         child: Column(
+  //           children: <Widget>[
+  //             TextButton(onPressed: () {}, child: Text('テキストボタン')),
+  //             ElevatedButton(onPressed: () {}, child: Text('aaaa')),
+  //             // 2021 OutlineButton=>OutlinedButtonに変わった
+  //             OutlinedButton(
+  //               onPressed: () {},
+  //               child: Text('アウトラインボタン'),
+  //             )
+  //           ],
+  //         ),
+  //       ),
+
+  //       ));
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.blue,
-            title: Center(
-              child: Text(
-                widget.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25),
-              ),
-            )),
-        drawer: TechnologyDrawer(),
-        endDrawer: TechnologyEndDrawer(),
-        body: Center(
-            child: Container(
-          // マージン左右の100上下10
-
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          height: 800,
-          width: 380,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.green),
-          ),
-
-          child: Column(
-            children: <Widget>[
-              TextButton(onPressed: () {}, child: Text('テキストボタン')),
-              ElevatedButton(onPressed: () {}, child: Text('aaaa')),
-              // 2021 OutlineButton=>OutlinedButtonに変わった
-              OutlinedButton(
-                onPressed: () {},
-                child: Text('アウトラインボタン'),
-              )
-            ],
-          ),
-        )));
+      appBar: AppBar(),
+      body: _routes.elementAt(_selectedIndex),
+      drawer: TechnologyDrawer(),
+      endDrawer: TechnologyEndDrawer(),
+    );
   }
 }
 
@@ -218,5 +240,3 @@ class HomeScreenState extends State<HomeScreen> {
 //     return _State();
 //   }
 // }
-
-
