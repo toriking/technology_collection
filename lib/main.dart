@@ -16,28 +16,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // MaterialAppでラップするよ
     return MaterialApp(
-        // titleタイトルhome theme色
-        title: 'Technology collection',
-        // テーマカラー
-        theme: ThemeData(primaryColor: Colors.red),
-        // HomeScreenを呼ぶよ
-        home: HomeScreen(title: 'Home Screen'),
-        // routes: <String, WidgetBuilder>{
-        //   Routes.home: (BuildContext context) =>
-        //       HomeScreen(title: 'Home Screen'),
-        //   Routes.tete: (BuildContext context) => NewView1(),
-        });
+      // titleタイトルhome theme色
+      title: 'Technology collection',
+      // テーマカラー
+      theme: ThemeData(primaryColor: Colors.red),
+      // HomeScreenを呼ぶよ
+      home: HomeScreen(title: 'Home Screen'),
+      // routes: <String, WidgetBuilder>{
+      //   Routes.home: (BuildContext context) =>
+      //       HomeScreen(title: 'Home Screen'),
+      //   Routes.tete: (BuildContext context) => NewView1(),
+    );
   }
 }
 
-class Routes {
-  static const String home = '/home';
-  static const String tete = '/tete';
-}
+// class Routes {
+//   static const String home = '/home';
+//   static const String tete = '/tete';
+
+// }
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.title}) : super(key: key);
-  final String title;
+  HomeScreen({Key key, }) : super(key: key);
+  // final String title;
   @override
   HomeScreenState createState() => HomeScreenState();
 }
@@ -49,6 +50,40 @@ class HomeScreenState extends State<HomeScreen> {
     HomeScreen(),
     Tete(),
   ];
+  static const _drawerIcons = [
+    Icons.home,
+    Icons.textsms,
+  ];
+
+  static const _drawerItemNames = [
+    'ホーム',
+    'テキスト',
+  ];
+  @override
+  void initState() {
+    super.initState();
+    _drawerItems.add(_UpdateActiveate(0));
+    for (var i = 1; i < _drawerItemNames.length; i++) {
+      _drawerItems.add(_UpdateDeactiveState(i));
+    }
+  }
+
+  DrawerItem _updateActiveState(int index) {
+    return DrawerItem(
+      icon: Icon(_drawerIcons[index]),
+      title: Text(_drawerItemNames[index]),
+    );
+  }
+
+  DrawerItem _UpdateDeactiveState(int index) {
+    return DrawerItem(
+      icon: Icon(
+        _drawerIcons[index],
+      ),
+      title: Text(_drawerItemNames[index]),
+    );
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _drawerItems[_selectdIndex] = _UpdateDeactiveState(_selectedIndex);
@@ -101,7 +136,10 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: _routes.elementAt(_selectedIndex),
-      drawer: TechnologyDrawer(),
+      
+      drawer: Drawer(
+        items
+      ),
       endDrawer: TechnologyEndDrawer(),
     );
   }
