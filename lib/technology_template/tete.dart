@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../components/drawer.dart';
 
 class Tete extends StatelessWidget {
   static const String routeName = '/tete';
@@ -9,8 +8,7 @@ class Tete extends StatelessWidget {
       appBar: AppBar(
         title: Text('tete'),
       ),
-      drawer: TechnologyDrawer(),
-      endDrawer: TechnologyEndDrawer(),
+ 
       body: Center(
         
         child: 

@@ -2,8 +2,7 @@
 // 使いたいパッケージを呼ぶよ
 import 'package:flutter/material.dart';
 // 外部ファイルを使うよ
-import './technology_template/tete.dart';
-import 'components/drawer.dart';
+import 'components/drawer2.dart';
 
 // アプリを起動するよ ワンライナー
 void main() => runApp(MyApp());
@@ -16,17 +15,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // MaterialAppでラップするよ
     return MaterialApp(
-      // titleタイトルhome theme色
-      title: 'Technology collection',
-      // テーマカラー
-      theme: ThemeData(primaryColor: Colors.red),
-      // HomeScreenを呼ぶよ
-      home: HomeScreen(title: 'Home Screen'),
-      // routes: <String, WidgetBuilder>{
-      //   Routes.home: (BuildContext context) =>
-      //       HomeScreen(title: 'Home Screen'),
-      //   Routes.tete: (BuildContext context) => NewView1(),
-    );
+        // titleタイトルhome theme色
+        title: 'Technology collection',
+        // テーマカラー
+        theme: ThemeData(primaryColor: Colors.red),
+        // HomeScreenを呼ぶよ
+        home: DrawerItems()
+        // routes: <String, WidgetBuilder>{
+        //   Routes.home: (BuildContext context) =>
+        //       HomeScreen(title: 'Home Screen'),
+        //   Routes.tete: (BuildContext context) => NewView1(),
+        );
   }
 }
 
@@ -36,61 +35,9 @@ class MyApp extends StatelessWidget {
 
 // }
 
-class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, }) : super(key: key);
-  // final String title;
-  @override
-  HomeScreenState createState() => HomeScreenState();
-}
 
-class HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-  final drawerItems = <DrawerItem>[];
-  var _routes = [
-    HomeScreen(),
-    Tete(),
-  ];
-  static const _drawerIcons = [
-    Icons.home,
-    Icons.textsms,
-  ];
 
-  static const _drawerItemNames = [
-    'ホーム',
-    'テキスト',
-  ];
-  @override
-  void initState() {
-    super.initState();
-    _drawerItems.add(_UpdateActiveate(0));
-    for (var i = 1; i < _drawerItemNames.length; i++) {
-      _drawerItems.add(_UpdateDeactiveState(i));
-    }
-  }
-
-  DrawerItem _updateActiveState(int index) {
-    return DrawerItem(
-      icon: Icon(_drawerIcons[index]),
-      title: Text(_drawerItemNames[index]),
-    );
-  }
-
-  DrawerItem _UpdateDeactiveState(int index) {
-    return DrawerItem(
-      icon: Icon(
-        _drawerIcons[index],
-      ),
-      title: Text(_drawerItemNames[index]),
-    );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _drawerItems[_selectdIndex] = _UpdateDeactiveState(_selectedIndex);
-      _drawerItems[index] = _UpdateActiveState(index);
-      _selectedIndex = index;
-    });
-  }
+  
   // @override
   // Widget build(BuildContext context) {
   //   return Scaffold(
@@ -131,19 +78,8 @@ class HomeScreenState extends State<HomeScreen> {
 
   //       ));
   // }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: _routes.elementAt(_selectedIndex),
-      
-      drawer: Drawer(
-        items
-      ),
-      endDrawer: TechnologyEndDrawer(),
-    );
-  }
-}
+
+
 
 // homeプロパティのRandmWordsはStatefulWigidetクラスを継承します アプリの状態Stateを扱う
 // class HomeScreen extends StatefulWidget {
