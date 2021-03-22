@@ -54,6 +54,7 @@ class _DrawerState extends State<DrawerItems> {
   }
 
 // 合体リスト
+  // ignore: non_constant_identifier_names
   ListTile _UpdateActiveState(int index) {
     return ListTile(
       leading: Icon(
@@ -63,12 +64,10 @@ class _DrawerState extends State<DrawerItems> {
         _drawerItemIconName[index],
         style: TextStyle(color: Colors.black),
       ),
-      onTap: () {
-        _onItemTapped(_selectdIndex);
-      },
     );
   }
 
+  // ignore: non_constant_identifier_names
   ListTile _UpdateDeactiveState(int index) {
     return ListTile(
       leading: Icon(
@@ -99,18 +98,33 @@ class _DrawerState extends State<DrawerItems> {
     // ドロワー全体の幅など指定
     return Scaffold(
       appBar: AppBar(
-        title: Text('sss'),
-      ),
+          title: Center(
+        child: Text(
+          'Technology collection',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      )),
       body: _routes.elementAt(_selectdIndex),
-      drawer: Drawer(
+      endDrawer: Drawer(
         child: ListView.builder(
           itemBuilder: (context, index) {
             return ListTile(
               leading: Icon(_drawerItemIcon[index]),
               title: Text(_drawerItemIconName[index]),
+              onTap: () {
+                _onItemTapped(index);
+              },
             );
           },
           itemCount: _drawerItemIconName.length,
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [],
         ),
       ),
     );
