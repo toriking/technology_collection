@@ -2,13 +2,28 @@ import 'package:flutter/material.dart';
 import 'basics_drawer_pages/page1.dart';
 
 // シンプルな書き方
-class Routes {
-  static const String page1 = Page1.routeName;
-}
+// class Routes {
+//   static const String page1 = Page1.routeName;
+// }
 
 class Drawers extends StatelessWidget {
-  static const String routeName = '/page1';
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'drawers',
+      theme: ThemeData(primaryColor: Colors.yellow),
+      home: DrawersScreen(),
+      routes: {'/page1': (BuildContext context) => Page1()},
+    );
+  }
+}
 
+class DrawersScreen extends StatefulWidget {
+  @override
+  _DrawersScreenState createState() => _DrawersScreenState();
+}
+
+class _DrawersScreenState extends State<DrawersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +39,8 @@ class Drawers extends StatelessWidget {
               leading: Icon(Icons.widgets),
               trailing: Icon(Icons.arrow_back),
               onTap: () {
-                Navigator.of(context).pop();
-                Navigator.pushReplacementNamed(context, Routes.page1);
+                // Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/page1');
               },
             ),
           ],
