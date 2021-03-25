@@ -15,10 +15,16 @@ class DrawerItems extends StatefulWidget {
 }
 
 class _DrawerState extends State<DrawerItems> {
-//   // アイコンの種類 変数
+// アイコンの種類 変数
   int _selectdIndex = 0;
-//   // アイテムの空の配列 定数
+// アイテムの空の配列 定数
   final drawerItems = <ListTile>[];
+  int _selectedIndex = 0;
+  List<Widget> _routes = <Widget>[
+    Home(),
+    Basics(),
+  ];
+  
   static const _drawerItemIcon = [
     Icons.description_outlined,
     Icons.create_outlined,
@@ -35,6 +41,8 @@ class _DrawerState extends State<DrawerItems> {
     'ボタン',
     'アイコン',
   ];
+
+  static const _checkbox = [];
   var _routes = [
     Basics(),
     Tutorial(),
@@ -43,7 +51,9 @@ class _DrawerState extends State<DrawerItems> {
     Buttons(),
     IconCollection(),
   ];
+
   @override
+
   // リストを生成
   void initState() {
     super.initState();
@@ -90,6 +100,7 @@ class _DrawerState extends State<DrawerItems> {
     });
   }
 
+  bool value = false;
   // final items = List<String>.generate(100, (i) => 'Item $i');
   @override
   Widget build(BuildContext context) {
@@ -113,7 +124,18 @@ class _DrawerState extends State<DrawerItems> {
           itemBuilder: (context, index) {
             return ListTile(
               leading: Icon(_drawerItemIcon[index]),
-              title: Text(_drawerItemIconName[index]),
+              title: Container(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    _drawerItemIconName[index],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  Icon(Icons.keyboard_control_outlined),
+                ],
+              )),
               onTap: () {
                 _onItemTapped(index);
               },
