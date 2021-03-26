@@ -28,9 +28,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   english_words: ^3.1.5
+  provider: ^4.0.2
 
 
 dev_dependencies:
+  # スプラッシュ実装パッケージ
+  flutter_native_splash: ^1.1.5+1
   flutter_test:
     sdk: flutter
 
@@ -75,3 +78,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+# アプリの初めに表示される画面(スプラッシュ) 中心にイメージ画像、背景カラー
+flutter_native_splash:
+  image: "assets/icon/logo-sample.jpg" 
+  color: "4DD0E1"

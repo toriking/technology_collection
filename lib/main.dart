@@ -15,12 +15,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // MaterialAppでラップするよ
     return MaterialApp(
+      
         // titleタイトルhome theme色
         title: 'Technology collection',
         // テーマカラー
         theme: ThemeData(primaryColor: Colors.red),
         // HomeScreenを呼ぶよ
-        home: DrawerItems()
+        home: DrawerItems(),
+        
         // routes: <String, WidgetBuilder>{
         //   Routes.home: (BuildContext context) =>
         //       HomeScreen(title: 'Home Screen'),

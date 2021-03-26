@@ -9,7 +9,8 @@ import '../technology_template/buttons.dart';
 import '../technology_template/icon_collection.dart';
 
 class DrawerItems extends StatefulWidget {
-  DrawerItems({Key key}) : super(key: key);
+  final String title;
+  DrawerItems({Key key, this.title}) : super(key: key);
   @override
   _DrawerState createState() => _DrawerState();
 }
@@ -19,12 +20,11 @@ class _DrawerState extends State<DrawerItems> {
   int _selectdIndex = 0;
 // アイテムの空の配列 定数
   final drawerItems = <ListTile>[];
-  int _selectedIndex = 0;
-  List<Widget> _routes = <Widget>[
-    Home(),
-    Basics(),
-  ];
-  
+  // List<Widget> _routes = <Widget>[
+  //   // Home(),
+  //   Basics(),
+  // ];
+
   static const _drawerItemIcon = [
     Icons.description_outlined,
     Icons.create_outlined,
@@ -42,7 +42,7 @@ class _DrawerState extends State<DrawerItems> {
     'アイコン',
   ];
 
-  static const _checkbox = [];
+  // static const _checkbox = [];
   var _routes = [
     Basics(),
     Tutorial(),
@@ -107,17 +107,38 @@ class _DrawerState extends State<DrawerItems> {
     //
 
     // ドロワー全体の幅など指定
-    return Scaffold(
+    return Container(
+        // decoration: BoxDecoration(
+        //     image: DecorationImage(
+        //         image: AssetImage('assets/icon/logo-sample.jpg'),
+        //         fit: BoxFit.cover)),
+        child: Scaffold(
       appBar: AppBar(
-          title: Center(
-        child: Text(
-          'Technology collection',
-          style: TextStyle(
-            color: Colors.black,
-          ),
-          textAlign: TextAlign.center,
+        centerTitle: true,
+        title: Text(
+          'te',
+          style: TextStyle(color: Colors.pink),
         ),
-      )),
+
+        //   title: Center(
+        // child: Text(
+        //   'Technology collection',
+        //     style: TextStyle(
+        //       color: Colors.black,
+        //     ),
+        // ),
+        // )
+
+        // actions: <Widget>[
+        // SwitchListTile(
+        //     value: _switchValue,
+        //     onChanged: (bool value) {
+        //       setState(() {
+        //         _switchValue = value;
+        //       });
+        //     })
+        // ],
+      ),
       body: _routes.elementAt(_selectdIndex),
       endDrawer: Drawer(
         child: ListView.builder(
@@ -149,7 +170,7 @@ class _DrawerState extends State<DrawerItems> {
           children: [],
         ),
       ),
-    );
+    ));
     // child: ListView.builder(
     //   itemCount: items.length,
     //   itemBuilder: (context, index) {
