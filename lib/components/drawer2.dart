@@ -100,7 +100,8 @@ class _DrawerState extends State<DrawerItems> {
     });
   }
 
-  bool value = false;
+  bool _checkbox = false;
+
   // final items = List<String>.generate(100, (i) => 'Item $i');
   @override
   Widget build(BuildContext context) {
@@ -113,97 +114,78 @@ class _DrawerState extends State<DrawerItems> {
         //         image: AssetImage('assets/icon/logo-sample.jpg'),
         //         fit: BoxFit.cover)),
         child: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'te',
-          style: TextStyle(color: Colors.pink),
-        ),
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(
+                'te',
+                style: TextStyle(color: Colors.pink),
+              ),
 
-        //   title: Center(
-        // child: Text(
-        //   'Technology collection',
-        //     style: TextStyle(
-        //       color: Colors.black,
-        //     ),
-        // ),
-        // )
+              //   title: Center(
+              // child: Text(
+              //   'Technology collection',
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //     ),
+              // ),
+              // )
 
-        // actions: <Widget>[
-        // SwitchListTile(
-        //     value: _switchValue,
-        //     onChanged: (bool value) {
-        //       setState(() {
-        //         _switchValue = value;
-        //       });
-        //     })
-        // ],
-      ),
-      body: _routes.elementAt(_selectdIndex),
-      endDrawer: Drawer(
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: Icon(_drawerItemIcon[index]),
-              title: Container(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    _drawerItemIconName[index],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  Icon(Icons.keyboard_control_outlined),
-                ],
-              )),
-              onTap: () {
-                _onItemTapped(index);
-              },
-            );
-          },
-          itemCount: _drawerItemIconName.length,
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [],
-        ),
-      ),
-    ));
-    // child: ListView.builder(
-    //   itemCount: items.length,
-    //   itemBuilder: (context, index) {
-    //     return ListTile(
-    //       leading: Icon(Icons.home),
-    //       onTap: () {},
+              // actions: <Widget>[
+              // SwitchListTile(
+              //     value: _switchValue,
+              //     onChanged: (bool value) {
+              //       setState(() {
+              //         _switchValue = value;
+              //       });
+              //     })
+              // ],
+            ),
+            body: _routes.elementAt(_selectdIndex),
+            endDrawer: Drawer(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Icon(_drawerItemIcon[index]),
+                    title: Text(
+                      _drawerItemIconName[index],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    onTap: () {
+                      _onItemTapped(index);
+                    },
+                    trailing: Checkbox(
+                      value: _checkbox,
+                      onChanged: (value) {
+                        setState(() {
+                          _checkbox = !_checkbox;
+                        });
+                      },
+                    ),
+                  );
+                },
+                itemCount: _drawerItemIconName.length,
+              ),
+            ),
+            drawer: SelectedDrawer()));
+  }
+}
 
-    //       title: Text('${items[index]}'),
-    //     );
-    //   },
-    // ),
+// チェックボックスにチェック入れたものの管理
+class SelectedDrawer extends StatefulWidget {
+  @override
+  SelectedDrawerState createState() => SelectedDrawerState();
+}
 
-    // SizedBox(
-    //   height: 60,
-    //   child: DrawerHeader(
-    //     child: Text(
-    //       'Collection',
-    //       style: TextStyle(
-    //         fontSize: 16,
-    //         color: Colors.white,
-    //       ),
-    //       textAlign: TextAlign.center,
-    //     ),
-    //     decoration: BoxDecoration(
-    //       color: Colors.amber,
-    //     ),
-    //   ),
-    // ),
-
-    // Container(
-    //     width: MediaQuery.of(context).size.width,
-    //     child: Drawer(
-    //       child: ListView(children: drawerItems),
-    //     ));
+class SelectedDrawerState extends State<SelectedDrawer> {
+  // チェックされたもの入れる箱
+  // list<String> selectedList = [];
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(child: ListView.builder(
+        // itemCount: selectedList.length,
+        itemBuilder: (BuildContext context, int index) {
+      return Container();
+    }));
   }
 }
