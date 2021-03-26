@@ -33,7 +33,7 @@ dependencies:
 
 dev_dependencies:
   # スプラッシュ実装パッケージ
-  flutter_native_splash: ^1.1.5+1
+  # flutter_native_splash: ^1.1.5+1
   flutter_test:
     sdk: flutter
 
