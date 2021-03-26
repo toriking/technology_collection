@@ -79,6 +79,6 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 # アプリの初めに表示される画面(スプラッシュ) 中心にイメージ画像、背景カラー
-flutter_native_splash:
-  image: "assets/icon/logo-sample.jpg" 
-  color: "4DD0E1"
+# flutter_native_splash:
+#   image: "assets/icon/logo-sample.jpg" 
+#   color: "4DD0E1"

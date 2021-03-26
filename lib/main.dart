@@ -8,29 +8,58 @@ import 'components/drawer2.dart';
 void main() => runApp(MyApp());
 
 // MyAppはStatelessWidgetクラスを継承します アプリの状態Stateを扱わない
+// class MyApp extends StatelessWidget {
+//   // 継承 書き換え
+//   @override
+//   // buildメソッド
+//   Widget build(BuildContext context) {
+//     // MaterialAppでラップするよ
+
+//   }
+// }
+
 class MyApp extends StatelessWidget {
-  // 継承 書き換え
   @override
-  // buildメソッド
   Widget build(BuildContext context) {
-    // MaterialAppでラップするよ
-    return MaterialApp(
-      
-        // titleタイトルhome theme色
-        title: 'Technology collection',
-        // テーマカラー
-        theme: ThemeData(primaryColor: Colors.red),
-        // HomeScreenを呼ぶよ
-        home: DrawerItems(),
-        
-        // routes: <String, WidgetBuilder>{
-        //   Routes.home: (BuildContext context) =>
-        //       HomeScreen(title: 'Home Screen'),
-        //   Routes.tete: (BuildContext context) => NewView1(),
-        );
+    return FutureBuilder(
+      future: Future.delayed(Duration(seconds: 6)),
+      builder: (context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(
+              theme: ThemeData(primaryColor: Colors.red), home: Splash());
+        } else {
+          return MaterialApp(
+            // titleタイトルhome theme色
+            title: 'Technology collection',
+            // テーマカラー
+            theme: ThemeData(primaryColor: Colors.red),
+            // HomeScreenを呼ぶよ
+            home: DrawerItems(),
+
+            // routes: <String, WidgetBuilder>{
+            //   Routes.home: (BuildContext context) =>
+            //       HomeScreen(title: 'Home Screen'),
+            //   Routes.tete: (BuildContext context) => NewView1(),
+          );
+        }
+      },
+    );
   }
 }
 
+class Splash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Icon(
+          Icons.apartment_outlined,
+          size: MediaQuery.of(context).size.width * 0.785,
+        ),
+      ),
+    );
+  }
+}
 // class Routes {
 //   static const String home = '/home';
 //   static const String tete = '/tete';
