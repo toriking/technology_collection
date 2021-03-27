@@ -52,6 +52,8 @@ class _DrawerState extends State<DrawerItems> {
     IconCollection(),
   ];
 
+  get listBool => null;
+
   @override
 
   // リストを生成
@@ -74,6 +76,10 @@ class _DrawerState extends State<DrawerItems> {
         _drawerItemIconName[index],
         style: TextStyle(color: Colors.black),
       ),
+      // trailing: Checkbox(
+      //   value: tasks[index],
+      //   onChanged: (bool value) {},
+      // ),
     );
   }
 
@@ -100,9 +106,21 @@ class _DrawerState extends State<DrawerItems> {
     });
   }
 
-  bool _checkbox = false;
+  // void _onchanged(int index) {
+  //   setState(() {
+  //     checkbox[index] = true;
+  //   });
+  // }
 
-  // final items = List<String>.generate(100, (i) => 'Item $i');
+  // void onToggle(tasks) {
+  //   setState(() {
+  //     tasks.setCompleted(!tasks.isCompleted());
+  //   });
+  // }
+
+  // final tasks = [];
+
+  bool _value = false;
   @override
   Widget build(BuildContext context) {
     //
@@ -155,10 +173,11 @@ class _DrawerState extends State<DrawerItems> {
                       _onItemTapped(index);
                     },
                     trailing: Checkbox(
-                      value: _checkbox,
-                      onChanged: (value) {
+                      value: _value,
+                      onChanged: (bool _value) {
+                        _value = true;
                         setState(() {
-                          _checkbox = !_checkbox;
+                          _value = _value;
                         });
                       },
                     ),
