@@ -1,6 +1,7 @@
 // コメント多いですが自分なりの解釈です　なるべくべた書きします
 // 使いたいパッケージを呼ぶよ
 import 'package:flutter/material.dart';
+
 // 外部ファイルを使うよ
 import 'components/drawer2.dart';
 

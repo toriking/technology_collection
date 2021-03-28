@@ -1,6 +1,7 @@
-// for文で大量生成する(ドロワーvertion)
-
 import 'package:flutter/material.dart';
+// 状態管理
+
+// ページ
 import '../technology_template/basics.dart';
 import '../technology_template/tutorial.dart';
 import '../technology_template/drawers.dart';
@@ -20,10 +21,6 @@ class _DrawerState extends State<DrawerItems> {
   int _selectdIndex = 0;
 // アイテムの空の配列 定数
   final drawerItems = <ListTile>[];
-  // List<Widget> _routes = <Widget>[
-  //   // Home(),
-  //   Basics(),
-  // ];
 
   static const _drawerItemIcon = [
     Icons.description_outlined,
@@ -33,7 +30,7 @@ class _DrawerState extends State<DrawerItems> {
     Icons.radio_button_on,
     Icons.dashboard,
   ];
-  static const _drawerItemIconName = [
+  static const drawerItemName = [
     '基本文法',
     'チュートリアル',
     'ドロワー',
@@ -42,7 +39,6 @@ class _DrawerState extends State<DrawerItems> {
     'アイコン',
   ];
 
-  // static const _checkbox = [];
   var _routes = [
     Basics(),
     Tutorial(),
@@ -52,14 +48,12 @@ class _DrawerState extends State<DrawerItems> {
     IconCollection(),
   ];
 
-
   @override
-
   // リストを生成
   void initState() {
     super.initState();
     drawerItems.add(_UpdateActiveState(0));
-    for (var i = 1; i < _drawerItemIconName.length; i++) {
+    for (var i = 1; i < drawerItemName.length; i++) {
       drawerItems.add(_UpdateDeactiveState(i));
     }
   }
@@ -72,7 +66,7 @@ class _DrawerState extends State<DrawerItems> {
         _drawerItemIcon[index],
       ),
       title: Text(
-        _drawerItemIconName[index],
+        drawerItemName[index],
         style: TextStyle(color: Colors.black),
       ),
       // trailing: Checkbox(
@@ -89,7 +83,7 @@ class _DrawerState extends State<DrawerItems> {
         _drawerItemIcon[index],
       ),
       title: Text(
-        _drawerItemIconName[index],
+        drawerItemName[index],
         style: TextStyle(
           color: Colors.black,
         ),
@@ -122,70 +116,71 @@ class _DrawerState extends State<DrawerItems> {
   List<bool> isChecked = List.generate(_len, (index) => false);
   @override
   Widget build(BuildContext context) {
-    //
+    // final _checklists = Provider.of<ChecklistsProvider>(context).checklist;
 
     // ドロワー全体の幅など指定
     return Container(
-        // decoration: BoxDecoration(
-        //     image: DecorationImage(
-        //         image: AssetImage('assets/icon/logo-sample.jpg'),
-        //         fit: BoxFit.cover)),
-        child: Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: Text(
-                'te',
-                style: TextStyle(color: Colors.pink),
-              ),
-
-              //   title: Center(
-              // child: Text(
-              //   'Technology collection',
-              //     style: TextStyle(
-              //       color: Colors.black,
-              //     ),
-              // ),
-              // )
-
-              // actions: <Widget>[
-              // SwitchListTile(
-              //     value: _switchValue,
-              //     onChanged: (bool value) {
-              //       setState(() {
-              //         _switchValue = value;
-              //       });
-              //     })
-              // ],
+      // decoration: BoxDecoration(
+      //     image: DecorationImage(
+      //         image: AssetImage('assets/icon/logo-sample.jpg'),
+      //         fit: BoxFit.cover)),
+      child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              'te',
+              style: TextStyle(color: Colors.pink),
             ),
-            body: _routes.elementAt(_selectdIndex),
-            endDrawer: Drawer(
-              child: ListView.builder(
-                // アイテムの数だけリストを作る
-                itemCount: _drawerItemIconName.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Icon(_drawerItemIcon[index]),
-                    title: Text(
-                      _drawerItemIconName[index],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    onTap: () {
-                      _onItemTapped(index);
+
+            //   title: Center(
+            // child: Text(
+            //   'Technology collection',
+            //     style: TextStyle(
+            //       color: Colors.black,
+            //     ),
+            // ),
+            // )
+
+            // actions: <Widget>[
+            // SwitchListTile(
+            //     value: _switchValue,
+            //     onChanged: (bool value) {
+            //       setState(() {
+            //         _switchValue = value;
+            //       });
+            //     })
+            // ],
+          ),
+          body: _routes.elementAt(_selectdIndex),
+          endDrawer: Drawer(
+            child: ListView.builder(
+              // アイテムの数だけリストを作る
+              itemCount: drawerItemName.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: Icon(_drawerItemIcon[index]),
+                  title: Text(
+                    drawerItemName[index],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  onTap: () {
+                    _onItemTapped(index);
+                  },
+                  trailing: Checkbox(
+                    value: isChecked[index],
+                    onChanged: (checked) {
+                      setState(() {
+                        isChecked[index] = checked;
+                      });
                     },
-                    trailing: Checkbox(
-                      value: isChecked[index],
-                      onChanged: (checked) {
-                        setState(() {
-                          isChecked[index] = checked;
-                        });
-                      },
-                    ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-            drawer: SelectedDrawer()));
+          ),
+          drawer: SelectedDrawer()),
+    );
   }
 }
 
