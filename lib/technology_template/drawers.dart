@@ -24,13 +24,26 @@ class DrawersScreen extends StatefulWidget {
 }
 
 class _DrawersScreenState extends State<DrawersScreen> {
+  bool _value = false;
+  static int _len = 10;
+  void _onchanged(bool _value) {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('標準ドロワー'),
       ),
-      body: Center(),
+      body: Center(
+        child: ListView.builder(
+            itemCount: _len,
+            itemBuilder: (context, index) {
+              return CheckboxListTile(
+                  title: Text('uuu'), value: _value, onChanged: _onchanged);
+            }),
+      ),
       drawer: Drawer(
         child: ListView(
           children: [

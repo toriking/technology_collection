@@ -52,7 +52,6 @@ class _DrawerState extends State<DrawerItems> {
     IconCollection(),
   ];
 
-  get listBool => null;
 
   @override
 
@@ -119,8 +118,8 @@ class _DrawerState extends State<DrawerItems> {
   // }
 
   // final tasks = [];
-
-  bool _value = false;
+  static int _len = 10;
+  List<bool> isChecked = List.generate(_len, (index) => false);
   @override
   Widget build(BuildContext context) {
     //
@@ -161,6 +160,8 @@ class _DrawerState extends State<DrawerItems> {
             body: _routes.elementAt(_selectdIndex),
             endDrawer: Drawer(
               child: ListView.builder(
+                // アイテムの数だけリストを作る
+                itemCount: _drawerItemIconName.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: Icon(_drawerItemIcon[index]),
@@ -173,17 +174,15 @@ class _DrawerState extends State<DrawerItems> {
                       _onItemTapped(index);
                     },
                     trailing: Checkbox(
-                      value: _value,
-                      onChanged: (bool _value) {
-                        _value = true;
+                      value: isChecked[index],
+                      onChanged: (checked) {
                         setState(() {
-                          _value = _value;
+                          isChecked[index] = checked;
                         });
                       },
                     ),
                   );
                 },
-                itemCount: _drawerItemIconName.length,
               ),
             ),
             drawer: SelectedDrawer()));
