@@ -1,6 +1,7 @@
 // コメント多いですが自分なりの解釈です　なるべくべた書きします
 // 使いたいパッケージを呼ぶよ
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // 外部ファイルを使うよ
 import 'components/drawer2.dart';
@@ -22,6 +23,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // スプラッシュ
     return FutureBuilder(
       future: Future.delayed(Duration(seconds: 3)),
       builder: (context, AsyncSnapshot snapshot) {
@@ -29,18 +31,25 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
               theme: ThemeData(primaryColor: Colors.red), home: Splash());
         } else {
-          return MaterialApp(
-            // titleタイトルhome theme色
-            title: 'Technology collection',
-            // テーマカラー
-            theme: ThemeData(primaryColor: Colors.red),
-            // HomeScreenを呼ぶよ
-            home: DrawerItems(),
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider<CheckProvider>(
+                create: (context) => CheckProvider(),
+              )
+            ],
+            child: MaterialApp(
+              // titleタイトルhome theme色
+              title: 'Technology collection',
+              // テーマカラー
+              theme: ThemeData(primaryColor: Colors.red),
+              // HomeScreenを呼ぶよ
+              home: DrawerItems(),
 
-            // routes: <String, WidgetBuilder>{
-            //   Routes.home: (BuildContext context) =>
-            //       HomeScreen(title: 'Home Screen'),
-            //   Routes.tete: (BuildContext context) => NewView1(),
+              // routes: <String, WidgetBuilder>{
+              //   Routes.home: (BuildContext context) =>
+              //       HomeScreen(title: 'Home Screen'),
+              //   Routes.tete: (BuildContext context) => NewView1(),
+            ),
           );
         }
       },

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // 状態管理
+// import 'package:provider/provider.dart';
 
 // ページ
 import '../technology_template/basics.dart';
@@ -112,11 +114,13 @@ class _DrawerState extends State<DrawerItems> {
   // }
 
   // final tasks = [];
-  static int _len = 10;
+  static int _len = 6;
   List<bool> isChecked = List.generate(_len, (index) => false);
   @override
   Widget build(BuildContext context) {
     // final _checklists = Provider.of<ChecklistsProvider>(context).checklist;
+    // ignore: non_constant_identifier_names
+    var _ItemModel = Provider.of<CheckProvider>(context);
 
     // ドロワー全体の幅など指定
     return Container(
@@ -157,25 +161,30 @@ class _DrawerState extends State<DrawerItems> {
               // アイテムの数だけリストを作る
               itemCount: drawerItemName.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Icon(_drawerItemIcon[index]),
-                  title: Text(
-                    drawerItemName[index],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  onTap: () {
-                    _onItemTapped(index);
-                  },
-                  trailing: Checkbox(
-                    value: isChecked[index],
-                    onChanged: (checked) {
-                      setState(() {
-                        isChecked[index] = checked;
-                      });
+                return Consumer<CheckProvider>(
+                    builder: (context, checkProvider, child) {
+                  return ListTile(
+                    leading: Icon(_drawerItemIcon[index]),
+                    title: Text(
+                      drawerItemName[index],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    onTap: () {
+                      _onItemTapped(index);
                     },
-                  ),
-                );
+                    trailing: Checkbox(
+                      value: isChecked[index],
+                      onChanged: (bool checked) {
+                        var checklist = CheckList('');
+                        _ItemModel.add(checklist);
+                        setState(() {
+                          isChecked[index] = checked;
+                        });
+                      },
+                    ),
+                  );
+                });
               },
             ),
           ),
@@ -184,21 +193,53 @@ class _DrawerState extends State<DrawerItems> {
   }
 }
 
-// チェックボックスにチェック入れたものの管理
-class SelectedDrawer extends StatefulWidget {
-  @override
-  SelectedDrawerState createState() => SelectedDrawerState();
+class CheckProvider extends ChangeNotifier {
+  List<CheckList> _checlist = [];
+
+  List<CheckList> get items => _checlist;
+  // UnmodifiableListView<CheckList> get checklist =>
+  //     UnmodifiableListView(_checlist);
+
+  void add(CheckList checklist) {
+    _checlist.add(checklist);
+    notifyListeners();
+  }
+
+  void remove(CheckList checklist) {
+    _checlist.remove(checklist);
+    notifyListeners();
+  }
 }
 
-class SelectedDrawerState extends State<SelectedDrawer> {
+class CheckList {
+  const CheckList(this.title);
+  final String title;
+}
+// mixin CheckList {}
+
+// endDrawerのチェックされたものをうけとる
+class SelectedDrawer extends StatefulWidget {
   // チェックされたもの入れる箱
   // list<String> selectedList = [];
+  _SelectedDrawer createState() => _SelectedDrawer();
+}
+
+class _SelectedDrawer extends State<SelectedDrawer> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: ListView.builder(
-        // itemCount: selectedList.length,
-        itemBuilder: (BuildContext context, int index) {
-      return Container();
-    }));
+    return Drawer(child: Consumer<CheckProvider>(
+      builder: (BuildContext context, CheckProvider value, Widget child) {
+        return ListView.builder(
+          itemCount: value.items.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Card(
+              child: ListTile(
+                title: Text(value.items[index].title),
+              ),
+            );
+          },
+        );
+      },
+    ));
   }
 }
