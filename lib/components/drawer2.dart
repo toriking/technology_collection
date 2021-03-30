@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-// 状態管理
+//
 // import 'package:provider/provider.dart';
 
 // ページ
@@ -72,8 +71,8 @@ class _DrawerState extends State<DrawerItems> {
         style: TextStyle(color: Colors.black),
       ),
       // trailing: Checkbox(
-      //   value: tasks[index],
-      //   onChanged: (bool value) {},
+      //   checked: tasks[index],
+      //   onChanged: (bool checked) {},
       // ),
     );
   }
@@ -101,27 +100,13 @@ class _DrawerState extends State<DrawerItems> {
     });
   }
 
-  // void _onchanged(int index) {
-  //   setState(() {
-  //     checkbox[index] = true;
-  //   });
-  // }
+  // void _onchanged() {}
 
-  // void onToggle(tasks) {
-  //   setState(() {
-  //     tasks.setCompleted(!tasks.isCompleted());
-  //   });
-  // }
-
-  // final tasks = [];
   static int _len = 6;
   List<bool> isChecked = List.generate(_len, (index) => false);
+
   @override
   Widget build(BuildContext context) {
-    // final _checklists = Provider.of<ChecklistsProvider>(context).checklist;
-    // ignore: non_constant_identifier_names
-    var _ItemModel = Provider.of<CheckProvider>(context);
-
     // ドロワー全体の幅など指定
     return Container(
       // decoration: BoxDecoration(
@@ -147,10 +132,10 @@ class _DrawerState extends State<DrawerItems> {
 
             // actions: <Widget>[
             // SwitchListTile(
-            //     value: _switchValue,
-            //     onChanged: (bool value) {
+            //     checked: _switchValue,
+            //     onChanged: (bool checked) {
             //       setState(() {
-            //         _switchValue = value;
+            //         _switchValue = checked;
             //       });
             //     })
             // ],
@@ -161,30 +146,36 @@ class _DrawerState extends State<DrawerItems> {
               // アイテムの数だけリストを作る
               itemCount: drawerItemName.length,
               itemBuilder: (context, index) {
-                return Consumer<CheckProvider>(
-                    builder: (context, checkProvider, child) {
-                  return ListTile(
-                    leading: Icon(_drawerItemIcon[index]),
-                    title: Text(
-                      drawerItemName[index],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    onTap: () {
-                      _onItemTapped(index);
+                // 取得したいところをラップする
+                return ListTile(
+                  leading: Icon(_drawerItemIcon[index]),
+                  title: Text(
+                    drawerItemName[index],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  onTap: () {
+                    _onItemTapped(index);
+                  },
+                  // チェックボックス
+                  trailing: Checkbox(
+                    value: isChecked[index],
+                    onChanged: (bool val) {
+                      // var checklist = String('');
+                      // _ItemModel.add(checklist);
+                      Navigator.of(context).pop(isChecked);
+                      setState(() {
+                        if (!val) {
+                          isChecked[index] = false;
+                          _SelectedDrawer();
+                        } else {
+                          isChecked[index] = true;
+                        }
+                        // isChecked[index] = val;
+                      });
                     },
-                    trailing: Checkbox(
-                      value: isChecked[index],
-                      onChanged: (bool checked) {
-                        var checklist = CheckList('');
-                        _ItemModel.add(checklist);
-                        setState(() {
-                          isChecked[index] = checked;
-                        });
-                      },
-                    ),
-                  );
-                });
+                  ),
+                );
               },
             ),
           ),
@@ -192,30 +183,6 @@ class _DrawerState extends State<DrawerItems> {
     );
   }
 }
-
-class CheckProvider extends ChangeNotifier {
-  List<CheckList> _checlist = [];
-
-  List<CheckList> get items => _checlist;
-  // UnmodifiableListView<CheckList> get checklist =>
-  //     UnmodifiableListView(_checlist);
-
-  void add(CheckList checklist) {
-    _checlist.add(checklist);
-    notifyListeners();
-  }
-
-  void remove(CheckList checklist) {
-    _checlist.remove(checklist);
-    notifyListeners();
-  }
-}
-
-class CheckList {
-  const CheckList(this.title);
-  final String title;
-}
-// mixin CheckList {}
 
 // endDrawerのチェックされたものをうけとる
 class SelectedDrawer extends StatefulWidget {
@@ -225,21 +192,22 @@ class SelectedDrawer extends StatefulWidget {
 }
 
 class _SelectedDrawer extends State<SelectedDrawer> {
+  final List<String> checkedList = [];
   @override
   Widget build(BuildContext context) {
-    return Drawer(child: Consumer<CheckProvider>(
-      builder: (BuildContext context, CheckProvider value, Widget child) {
-        return ListView.builder(
-          itemCount: value.items.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
-              child: ListTile(
-                title: Text(value.items[index].title),
-              ),
-            );
-          },
-        );
-      },
-    ));
+    return Drawer(
+      child: ListView.builder(
+        itemCount: checkedList.length,
+        itemBuilder: (BuildContext context, index) {
+          return Card(
+            child: ListTile(
+              title: Text(checkedList[index]),
+              // leading: Icon(checked, items[index].icon),
+              // title: Text(checked.title),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
