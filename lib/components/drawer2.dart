@@ -18,6 +18,8 @@ class DrawerItems extends StatefulWidget {
 }
 
 class _DrawerState extends State<DrawerItems> {
+  final _suggestions = <Pair>[];
+  final Set<Pair> _saved = Set<Pair>();
 // アイコンの種類 変数
   int _selectdIndex = 0;
 // アイテムの空の配列 定数
@@ -102,11 +104,16 @@ class _DrawerState extends State<DrawerItems> {
 
   // void _onchanged() {}
 
-  static int _len = 6;
-  List<bool> isChecked = List.generate(_len, (index) => false);
+  // List<_DrawerState> _drawerstate = [];
 
+  // String icon;
+  // String name;
+  // _DrawerState(this.icon, this.name);
   @override
   Widget build(BuildContext context) {
+    int _len = 6;
+    List<bool> isChecked = List.generate(_len, (index) => false);
+    final bool val = _saved.contais(pair);
     // ドロワー全体の幅など指定
     return Container(
       // decoration: BoxDecoration(
@@ -115,6 +122,7 @@ class _DrawerState extends State<DrawerItems> {
       //         fit: BoxFit.cover)),
       child: Scaffold(
           appBar: AppBar(
+            leading: IconButton(icon: Icon(Icons.list),onPressed: _pushSaved,),
             centerTitle: true,
             title: Text(
               'te',
@@ -146,7 +154,6 @@ class _DrawerState extends State<DrawerItems> {
               // アイテムの数だけリストを作る
               itemCount: drawerItemName.length,
               itemBuilder: (context, index) {
-                // 取得したいところをラップする
                 return ListTile(
                   leading: Icon(_drawerItemIcon[index]),
                   title: Text(
@@ -167,9 +174,12 @@ class _DrawerState extends State<DrawerItems> {
                       setState(() {
                         if (!val) {
                           isChecked[index] = false;
-                          _SelectedDrawer();
+                          _save.remove(pair);
+                          // _DrawerState = _drawerstate;
+
                         } else {
                           isChecked[index] = true;
+                          _saved.add(pair);
                         }
                         // isChecked[index] = val;
                       });
@@ -179,35 +189,60 @@ class _DrawerState extends State<DrawerItems> {
               },
             ),
           ),
-          drawer: SelectedDrawer()),
+          
+      )
     );
   }
-}
 
-// endDrawerのチェックされたものをうけとる
-class SelectedDrawer extends StatefulWidget {
-  // チェックされたもの入れる箱
-  // list<String> selectedList = [];
-  _SelectedDrawer createState() => _SelectedDrawer();
-}
-
-class _SelectedDrawer extends State<SelectedDrawer> {
-  final List<String> checkedList = [];
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView.builder(
-        itemCount: checkedList.length,
-        itemBuilder: (BuildContext context, index) {
-          return Card(
-            child: ListTile(
-              title: Text(checkedList[index]),
-              // leading: Icon(checked, items[index].icon),
-              // title: Text(checked.title),
+  void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          final Iterable<ListTile> tiles = _saved.map(
+            (CheckPair pair) => ListTile(
+              title: Text(pair.asPascalCase),
             ),
           );
+
+          final List<Widget> divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+          return Drawer();
         },
       ),
     );
   }
 }
+
+// endDrawerのチェックされたものをうけとる
+// class SelectedDrawer extends StatefulWidget {
+//   // チェックされたもの入れる箱
+//   // list<String> selectedList = [];
+//   _SelectedDrawer createState() => _SelectedDrawer();
+// }
+
+// class _SelectedDrawer extends State<SelectedDrawer> {
+//   List<_DrawerState> _drawerstate = [];
+//   _DrawerState selectedDrawer;
+//   // final List<String> checkedList = [];
+//   @override
+//   Widget build(BuildContext context) {
+//     return Drawer(
+//       child: ListView.builder(
+//         itemCount: _drawerstate.length,
+//         itemBuilder: (BuildContext context, index) {
+//           return Card(
+//             child: ListTile(
+//               // leading: Icon(selectedDrawer.icon),
+//               title: Text(selectedDrawer.name),
+
+//               // leading: Icon(checked, items[index].icon),
+//               // title: Text(checked.title),
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }

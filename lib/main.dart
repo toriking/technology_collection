@@ -7,6 +7,7 @@ import 'components/drawer2.dart';
 
 // アプリを起動するよ ワンライナー
 void main() => runApp(MyApp());
+  // await Future.delayed(Duration(seconds: 2));
 
 // MyAppはStatelessWidgetクラスを継承します アプリの状態Stateを扱わない
 // class MyApp extends StatelessWidget {
